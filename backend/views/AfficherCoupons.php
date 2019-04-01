@@ -1,33 +1,13 @@
 <?php
-		include "../entites/promotion.php";
-	include "../core/promotionF.php";
-	 $promotionF = new promotionF();
+include'../core/CouponC.php';
+include'../entites/Coupon.php';
 
-	 
-	 if(isset($_GET['idc']))
-{
-	$resultat=$promotionF->rechercherPromo($_GET['idc']);
-}
+$CouponC=new CouponC();
 
-if(isset($_POST['supprimer']))
-{
+								$CouponC =new CouponC();
+								$listeCoupons=$CouponC ->afficherCoupons();
 
-	
-	if(isset($_POST['Product_id']) and isset($_POST['Product_cat']) and isset($_POST['pValue']) and isset($_POST['pid']))
-	{
-		
-	 $Product_id=$_POST['Product_id'];
-	 $Product_cat=$_POST['Product_cat'];
-	 $pValue=$_POST['pValue'];
-	 $promoid=$_POST['pid'];
-	 
-	 
-	 $promotionF->supprimerPromotion($_POST['pid']);
-	 header('Location: AfficherPromotions.php');
-	}else{
-		echo "verfier les champs";
-	}
-}
+
 ?>
 
 
@@ -68,55 +48,8 @@ if(isset($_POST['supprimer']))
       <link rel="stylesheet" href="assets/css/seipkon.css">
       <!-- Responsive CSS -->
       <link rel="stylesheet" href="assets/css/responsive.css">
-	  <!-- jQuery -->
-      <script src="assets/js/jquery-3.1.0.min.js"></script>
-	    <script language="javascript">
-	  var init= function ()
-	  {
-	  var sel = $('select');
-	  
-	  var clearSelected = function ()
-	  {
-		  sel.find(':selected').prop('selected',false);
-	  
-	  }
-	  if(localStorage.getItem('opt'))
-	  {
-		  var opt = localStorage.getItem('opt');
-			clearSelected();
-			sel.find('#'+opt).prop('selected',true);
-	  }
-	  
-	  var setPreference = function (){
-		  localStorage.setItem('opt',sel.find(':selected').attr('id'));
-	  };
-	  
-	  var setLink = function (){
-		 var id = f.pid.value;
-		 window.location.replace("http://127.0.0.1/backend/views/supprimerPromotion.php?idc="+id);
-	  };
-	  var check = function()
-	  {
-		  if(window.location.href=="http://127.0.0.1/backend/views/supprimerPromotion.php"){
-			 var id = f.pid.value;
-		 window.location.replace("http://127.0.0.1/backend/views/supprimerPromotion.php?idc="+id);
-		  }
-	  };
-	  
-	  
-	  sel.on('change',setPreference);
-	  sel.on('change',setLink);
-	  $(document).ready(check);
-	  
-	  
-	  
-	  };
-	  
-	  
-	  $(document).ready(init);
-	  </script>
    </head>
-   <body onload="">
+   <body>
        
       <!-- Start Page Loading -->
       <div id="loader-wrapper">
@@ -262,8 +195,7 @@ if(isset($_POST['supprimer']))
                                        <li>
                                           <a href="#" class="single-notification">
                                              <div class="notification-img bg_yellow">
-                                                <i class="fas fa-envelope"></i>
-                                             </div>
+<i class="fas fa-envelope"></i>                                             </div>
                                              <div class="notification-txt">
                                                 <h4>you have received an email</h4>
                                                 <span>56 seconds ago</span>
@@ -317,8 +249,7 @@ if(isset($_POST['supprimer']))
                                        <li>
                                           <a href="#" class="single-notification">
                                              <div class="notification-img bg_yellow">
-                                                <i class="fas fa-envelope"></i>
-                                             </div>
+<i class="fas fa-envelope"></i>                                             </div>
                                              <div class="notification-txt">
                                                 <h4>you have received an email</h4>
                                                 <span>56 seconds ago</span>
@@ -536,7 +467,8 @@ if(isset($_POST['supprimer']))
                         </ul>
                      </li>
 					 <!--  FIN MENU Gestion des Coupons -->
-	
+	 
+					 
 					 
 					 
                   </ul>
@@ -670,71 +602,40 @@ if(isset($_POST['supprimer']))
          <section id="content" class="seipkon-content-wrapper">
             <div class="page-content">
 					 <!-- Changer toute Page Content par --> 
+
 <div class="row">
                      <div class="col-md-12">
                         <div class="page-box">
                            <div class="row">
-                              <div class="col-md-6 col-sm-6">
-                                 <div class="add-product-form-group">
-                                    <h3>Remove Promotion</h3>
-                                    <form name="f" method="POST" action="supprimerPromotion.php">
-									<div class="row">
-                                          <div class="col-md-12">
-                                             <p>
-                                                <label id="idP">Promotion ID :</label>
-                                                <select id="pid" name="pid" >										
-												<?php  $promotions=$promotionF->afficherPromotions();
-													foreach($promotions as $promotion)
-													{
-												?>
-												<option id="<?php echo $promotion['id']?>" style=""><?php echo $promotion['id']?></option>
-													<?php }?>
-												</select>
-                                             </p>
-                                          </div>
-                                       </div> 
-									   <div class="row">
-                                          <div class="col-md-12">
-                                             <p>
-                                                <label>Product ID :</label>
-                                                <input id="Prodid" type="text" name="Product_id" id="Product_id" value="<?php foreach($resultat as $row){ echo  $row['idProduit'];}  ?>">
-                                             </p>
-                                          </div>
-                                       </div>
-									   <div class="row">
-                                          <div class="col-md-12">
-                                             <p>
-                                                <label>Category ID</label>
-                                                <input id="ProdCat" type="text"  name="Product_cat" id="Product_cat" value="<?php echo   $row['idCategorie']; ?>">
-                                             </p>
-                                          </div>
-                                       </div>
-									   <div class="row">
-                                          <div class="col-md-12">
-                                             <p>
-                                                <label>Promotion Value</label>
-                                                <input id="PromV"type="text" name="pValue" id="pValue" value="<?php echo   $row['tauxPromo']; ?>">
-                                             </p>
-                                          </div>
-                                       </div>
-                                       <div class="row">
-                                          <div class="col-md-12">
-                                             <p>
-                                                <button type="submit" class="btn btn-success" value="supprimer" name="supprimer">
-                                                <i class="fa fa-check"></i>
-                                                Delete
-                                                </button>
-                                                <button type="submit" class="btn btn-danger" >
-                                                <i class="fa fa-times"></i>
-                                                Cancel
-                                                </button>
-                                             </p>
-                                          </div>
-                                       </div>
-                                    </form>
-                                 </div>
-                              </div>
+						   <div class="table-responsive">
+								<table class="table table-striped w-auto">
+								<tr>
+								<td><center>Coupon ID</center></td>
+								<td><center>Code</center></td>
+								<td><center>Reduction</center></td>
+								<td><center>Start Date</center></td>
+								<td><center>End Date</center></td>
+								</tr>
+
+								<?PHP
+								foreach($listeCoupons as $Coupon ){
+									?>
+									<tr>
+									<td><?PHP echo "<center>".$Coupon ['id']."</center>"; ?></td>
+									<td><?PHP echo "<center>".$Coupon ['code']."</center>"; ?></td>
+									<td><?PHP echo "<center>".$Coupon ['reduction']."</center>"; ?></td>
+									<td><?PHP echo "<center>".$Coupon ['date_Debut']."</center>"; ?></td>
+									<td><?PHP echo "<center>".$Coupon ['date_Fin']."</center>"; ?></td>
+									
+									
+									
+									</tr>
+									<?PHP
+									}
+									?>
+								</table>
                            </div>
+						   </div>
                         </div>
                      </div>
                   </div>
@@ -754,7 +655,8 @@ if(isset($_POST['supprimer']))
       <!-- End Wrapper -->
        
        
-      
+      <!-- jQuery -->
+      <script src="assets/js/jquery-3.1.0.min.js"></script>
       <!-- Bootstrap JS -->
       <script src="assets/plugins/bootstrap/bootstrap.min.js"></script>
       <!-- Bootstrap-select JS -->

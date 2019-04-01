@@ -521,6 +521,20 @@ if(isset($_GET['idc']))
                         </ul>
                      </li>
 					 <!--  FIN MENU Gestion des Promotion --> 
+					 <!-- MENU Gestion des Coupons --> 
+					 <li>
+                        <a href="#gestionCoupon" data-toggle="collapse" aria-expanded="false">
+						<i class="fas fa-users"></i>
+                        Gestion des Coupons
+                        </a>
+                        <ul class="collapse list-unstyled" id="gestionCoupon">
+                           <li><a href="AjouterCoupon.php">Ajouter Coupon</a></li>
+						   <li><a href="modifierCoupon.php">Modifier Coupon</a></li>
+						   <li><a href="supprimerCoupon.php">Supprimer Coupon</a></li>
+						   <li><a href="AfficherCoupons.php">Afficher la liste des Coupon</a></li>
+                        </ul>
+                     </li>
+					 <!--  FIN MENU Gestion des Coupons -->
 					 
 					 
                   </ul>

@@ -1,33 +1,26 @@
 <?php
-		include "../entites/promotion.php";
-	include "../core/promotionF.php";
-	 $promotionF = new promotionF();
+include'../core/CouponC.php';
+include'../entites/Coupon.php';
 
+$CouponC=new CouponC();
 	 
-	 if(isset($_GET['idc']))
+	 var_dump($_POST);
+if(isset($_GET['idc']))
 {
-	$resultat=$promotionF->rechercherPromo($_GET['idc']);
-}
-
-if(isset($_POST['supprimer']))
-{
-
+	$resultat=$CouponC->rechercherCoupon($_GET['idc']);
+}	
 	
-	if(isset($_POST['Product_id']) and isset($_POST['Product_cat']) and isset($_POST['pValue']) and isset($_POST['pid']))
-	{
-		
-	 $Product_id=$_POST['Product_id'];
-	 $Product_cat=$_POST['Product_cat'];
-	 $pValue=$_POST['pValue'];
-	 $promoid=$_POST['pid'];
+	if(isset($_POST['pid']))
+		 {
+	 $CouponC->supprimerCoupon($_POST['pid']);
+	 //header('Location: AfficherPromotions.php');
 	 
-	 
-	 $promotionF->supprimerPromotion($_POST['pid']);
-	 header('Location: AfficherPromotions.php');
 	}else{
 		echo "verfier les champs";
 	}
-}
+
+
+
 ?>
 
 
@@ -68,9 +61,8 @@ if(isset($_POST['supprimer']))
       <link rel="stylesheet" href="assets/css/seipkon.css">
       <!-- Responsive CSS -->
       <link rel="stylesheet" href="assets/css/responsive.css">
-	  <!-- jQuery -->
-      <script src="assets/js/jquery-3.1.0.min.js"></script>
-	    <script language="javascript">
+	  <script src="assets/js/jquery-3.1.0.min.js"></script>
+	  <script language="javascript">
 	  var init= function ()
 	  {
 	  var sel = $('select');
@@ -93,13 +85,13 @@ if(isset($_POST['supprimer']))
 	  
 	  var setLink = function (){
 		 var id = f.pid.value;
-		 window.location.replace("http://127.0.0.1/backend/views/supprimerPromotion.php?idc="+id);
+		 window.location.replace("http://127.0.0.1/backend/views/supprimerCoupon.php?idc="+id);
 	  };
 	  var check = function()
 	  {
-		  if(window.location.href=="http://127.0.0.1/backend/views/supprimerPromotion.php"){
+		  if(window.location.href=="http://127.0.0.1/backend/views/supprimerCoupon.php"){
 			 var id = f.pid.value;
-		 window.location.replace("http://127.0.0.1/backend/views/supprimerPromotion.php?idc="+id);
+		 window.location.replace("http://127.0.0.1/backend/views/supprimerCoupon.php?idc="+id);
 		  }
 	  };
 	  
@@ -262,8 +254,7 @@ if(isset($_POST['supprimer']))
                                        <li>
                                           <a href="#" class="single-notification">
                                              <div class="notification-img bg_yellow">
-                                                <i class="fas fa-envelope"></i>
-                                             </div>
+<i class="fas fa-envelope"></i>                                             </div>
                                              <div class="notification-txt">
                                                 <h4>you have received an email</h4>
                                                 <span>56 seconds ago</span>
@@ -317,8 +308,7 @@ if(isset($_POST['supprimer']))
                                        <li>
                                           <a href="#" class="single-notification">
                                              <div class="notification-img bg_yellow">
-                                                <i class="fas fa-envelope"></i>
-                                             </div>
+<i class="fas fa-envelope"></i>                                             </div>
                                              <div class="notification-txt">
                                                 <h4>you have received an email</h4>
                                                 <span>56 seconds ago</span>
@@ -480,7 +470,7 @@ if(isset($_POST['supprimer']))
                         </ul>
                      </li>
 					 
-									<!-- MENU Gestion des Clients --> 
+					<!-- MENU Gestion des Clients --> 
 					 <li>
                         <a href="#gestionClients" data-toggle="collapse" aria-expanded="false">
 						<i class="fas fa-users"></i>
@@ -521,8 +511,8 @@ if(isset($_POST['supprimer']))
 						   <li><a href="AfficherPromotions.php">List All Promos</a></li>
                         </ul>
                      </li>
-					 <!--  FIN MENU Gestion des Promotion --> 
-					 <!-- MENU Gestion des Coupons --> 
+					 <!--  FIN MENU Gestion des Promotion -->
+					<!-- MENU Gestion des Coupons --> 
 					 <li>
                         <a href="#gestionCoupon" data-toggle="collapse" aria-expanded="false">
 						<i class="fas fa-users"></i>
@@ -535,8 +525,8 @@ if(isset($_POST['supprimer']))
 						   <li><a href="AfficherCoupons.php">Afficher la liste des Coupon</a></li>
                         </ul>
                      </li>
-					 <!--  FIN MENU Gestion des Coupons -->
-	
+					 <!--  FIN MENU Gestion des Coupons -->					 
+					 
 					 
 					 
                   </ul>
@@ -670,59 +660,68 @@ if(isset($_POST['supprimer']))
          <section id="content" class="seipkon-content-wrapper">
             <div class="page-content">
 					 <!-- Changer toute Page Content par --> 
-<div class="row">
+					<div class="row">
                      <div class="col-md-12">
                         <div class="page-box">
                            <div class="row">
                               <div class="col-md-6 col-sm-6">
                                  <div class="add-product-form-group">
-                                    <h3>Remove Promotion</h3>
-                                    <form name="f" method="POST" action="supprimerPromotion.php">
-									<div class="row">
+                                    <h3>Coupon Info</h3>
+                                    <form name="f" method="POST" action="supprimerCoupon.php">
+                                       <div class="row">
                                           <div class="col-md-12">
                                              <p>
-                                                <label id="idP">Promotion ID :</label>
-                                                <select id="pid" name="pid" >										
-												<?php  $promotions=$promotionF->afficherPromotions();
-													foreach($promotions as $promotion)
+                                                <label>Coupon ID</label>
+                                               <select id="pid" name="pid">
+											   <?php  $Coupons=$CouponC->afficherCoupons();
+													foreach($Coupons as $Coupon)
 													{
 												?>
-												<option id="<?php echo $promotion['id']?>" style=""><?php echo $promotion['id']?></option>
+												<option id="<?php echo $Coupon['id']?>"><?php echo $Coupon['id']?></option>
 													<?php }?>
-												</select>
-                                             </p>
-                                          </div>
-                                       </div> 
-									   <div class="row">
-                                          <div class="col-md-12">
-                                             <p>
-                                                <label>Product ID :</label>
-                                                <input id="Prodid" type="text" name="Product_id" id="Product_id" value="<?php foreach($resultat as $row){ echo  $row['idProduit'];}  ?>">
+											   </select>
                                              </p>
                                           </div>
                                        </div>
+									   
 									   <div class="row">
                                           <div class="col-md-12">
                                              <p>
-                                                <label>Category ID</label>
-                                                <input id="ProdCat" type="text"  name="Product_cat" id="Product_cat" value="<?php echo   $row['idCategorie']; ?>">
-                                             </p>
-                                          </div>
-                                       </div>
-									   <div class="row">
-                                          <div class="col-md-12">
-                                             <p>
-                                                <label>Promotion Value</label>
-                                                <input id="PromV"type="text" name="pValue" id="pValue" value="<?php echo   $row['tauxPromo']; ?>">
+                                                <label>Coupon Code</label>
+                                                <input type="text"  readonly  name="code" value="<?php foreach($resultat as $row){echo  $row['code'];}  ?>">
                                              </p>
                                           </div>
                                        </div>
                                        <div class="row">
                                           <div class="col-md-12">
                                              <p>
-                                                <button type="submit" class="btn btn-success" value="supprimer" name="supprimer">
+                                                <label>Reduction</label>
+                                                <input type="number" min=0 max=100 readonly  value="<?php echo  $row['reduction']; ?>" name="reduction">
+                                             </p>
+                                          </div>
+                                       </div>
+                                       <div class="row">
+                                          <div class="col-md-12">
+                                             <p>
+                                                <label>Start Date</label>
+                                                <input type="date" readonly  name="dateDebut" value="<?php echo  $row['date_Debut']; ?>">
+                                             </p>
+                                          </div>
+                                       </div>
+                                       <div class="row">
+                                          <div class="col-md-12">
+                                             <p>
+                                                <label>End Date</label>
+                                                <input type="date" readonly  name="dateFin" value="<?php echo  $row['date_Fin']; ?>">
+                                             </p>
+                                          </div>
+                                       </div>                                      
+                                       <div class="row">
+                                          <div class="col-md-12">
+                                             <p>
+                                                <button type="submit" class="btn btn-success" value="ajouter" name="ajouter">
                                                 <i class="fa fa-check"></i>
-                                                Delete
+                                                Save Info
                                                 </button>
                                                 <button type="submit" class="btn btn-danger" >
                                                 <i class="fa fa-times"></i>
@@ -754,6 +753,7 @@ if(isset($_POST['supprimer']))
       <!-- End Wrapper -->
        
        
+      <!-- jQuery -->
       
       <!-- Bootstrap JS -->
       <script src="assets/plugins/bootstrap/bootstrap.min.js"></script>

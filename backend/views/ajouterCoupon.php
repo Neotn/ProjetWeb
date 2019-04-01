@@ -421,6 +421,62 @@ $CouponC=new CouponC();
                            <li><a href="ui_pagination.html">pagination</a></li>
                         </ul>
                      </li>
+					 <!-- MENU Gestion des Clients --> 
+					 <li>
+                        <a href="#gestionClients" data-toggle="collapse" aria-expanded="false">
+						<i class="fas fa-users"></i>
+                        Gestion des Clients
+                        </a>
+                        <ul class="collapse list-unstyled" id="gestionClients">
+                           <li><a href="AjoutClient.php">Ajouter Client</a></li>
+						   <li><a href="modifierClient.php">Modifier Client</a></li>
+						   <li><a href="supprimerClient.php">Supprimer Client</a></li>
+						   <li><a href="AfficherClients.php">Afficher la liste des Clients</a></li>
+                        </ul>
+                     </li>
+					 <!--  FIN MENU Gestion des Clients --> 
+					 			<!-- MENU Gestion des Admins --> 
+					 <li>
+                        <a href="#gestionAdmins" data-toggle="collapse" aria-expanded="false">
+						<i class="fas fa-users"></i>
+                        Gestion des Adminstrateurs
+                        </a>
+                        <ul class="collapse list-unstyled" id="gestionAdmins">
+                           <li><a href="AjouterAdmin.php">Ajouter Admin</a></li>
+						   <li><a href="modifierAdmin.php">Modifier Admin</a></li>
+						   <li><a href="supprimerAdmin.php">Supprimer Admin</a></li>
+						   <li><a href="AfficherAdmins.php">Afficher la liste des Admins</a></li>
+                        </ul>
+                     </li>
+					 <!--  FIN MENU Gestion des Admins --> 
+					 <!-- MENU Gestion des Promotion --> 
+					 <li>
+                        <a href="#gestionPromo" data-toggle="collapse" aria-expanded="false">
+						<i class="fas fa-percent"></i>
+                        Gestion des Promotions
+                        </a>
+                        <ul class="collapse list-unstyled" id="gestionPromo">
+                           <li><a href="ajoutPromotion.php">Add Promo</a></li>
+						   <li><a href="modifierPromotion.php">Modify Promo</a></li>
+						   <li><a href="supprimerPromotion.php">Delete Promo</a></li>
+						   <li><a href="AfficherPromotions.php">List All Promos</a></li>
+                        </ul>
+                     </li>
+					 <!--  FIN MENU Gestion des Promotion -->
+					 <!-- MENU Gestion des Coupons --> 
+					 <li>
+                        <a href="#gestionCoupon" data-toggle="collapse" aria-expanded="false">
+						<i class="fa fa-gift"></i>
+                        Gestion des Coupons
+                        </a>
+                        <ul class="collapse list-unstyled" id="gestionCoupon">
+                           <li><a href="AjouterCoupon.php">Ajouter Coupon</a></li>
+						   <li><a href="modifierCoupon.php">Modifier Coupon</a></li>
+						   <li><a href="supprimerCoupon.php">Supprimer Coupon</a></li>
+						   <li><a href="AfficherCoupons.php">Afficher la liste des Coupon</a></li>
+                        </ul>
+                     </li>
+					 <!--  FIN MENU Gestion des Coupons -->
                   </ul>
                </div>
                <!-- Menu Section End -->

@@ -150,7 +150,6 @@ class PromotionF{
 		$req=$db->prepare($sql);
 		try{
 		$req->execute();
-		header('Location: AfficherClients.php');
 		}
         catch (Exception $e){
             die('Erreur: '.$e->getMessage());

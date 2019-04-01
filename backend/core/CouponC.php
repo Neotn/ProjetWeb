@@ -81,6 +81,19 @@ class CouponC{
         }
 	}
 	
+	function supprimerCoupon($id)
+	{
+			$sql="DELETE FROM codepromo where id=$id";
+		$db = config::getConnexion();
+		$req=$db->prepare($sql);
+		try{
+		$req->execute();
+		}
+        catch (Exception $e){
+            die('Erreur: '.$e->getMessage());
+        }
+	}
+	
 }
 
 ?>
